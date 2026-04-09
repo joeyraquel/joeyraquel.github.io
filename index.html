@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Joey Raquel — Penetration Tester</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f4f0;
+    --green: #00ff88;
+    --green-dim: #00cc6a;
+    --gray: #1a1a1a;
+    --gray2: #2a2a2a;
+    --muted: #888;
+    --font-display: 'Syne', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 2.5rem;
+    border-bottom: 1px solid #1e1e1e;
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(8px);
+  }
+  .nav-logo { font-family: var(--font-display); font-size: 18px; font-weight: 800; letter-spacing: -0.5px; }
+  .nav-logo span { color: var(--green); }
+  nav ul { list-style: none; display: flex; gap: 2rem; }
+  nav a { color: var(--muted); text-decoration: none; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+  nav a:hover { color: var(--green); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 2.5rem 4rem;
+    border-bottom: 1px solid #1e1e1e;
+    position: relative;
+  }
+  .hero-tag {
+    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--green); margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero-tag::before {
+    content: ''; display: inline-block; width: 30px; height: 1px; background: var(--green);
+  }
+  h1 {
+    font-family: var(--font-display); font-size: clamp(3rem, 8vw, 6.5rem);
+    font-weight: 800; line-height: 1.0; letter-spacing: -2px;
+    margin-bottom: 1.5rem;
+  }
+  h1 .line2 { color: var(--green); display: block; }
+  .hero-sub {
+    font-size: 14px; color: var(--muted); max-width: 520px;
+    line-height: 1.9; margin-bottom: 2.5rem;
+  }
+  .hero-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 12px 24px; font-family: var(--font-mono);
+    font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+    text-decoration: none; border: 1px solid; transition: all 0.2s; cursor: pointer;
+  }
+  .btn-primary { background: var(--green); color: var(--black); border-color: var(--green); }
+  .btn-primary:hover { background: var(--green-dim); border-color: var(--green-dim); }
+  .btn-secondary { background: transparent; color: var(--white); border-color: #333; }
+  .btn-secondary:hover { border-color: var(--green); color: var(--green); }
+
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 4rem;
+    border-top: 1px solid #1e1e1e; padding-top: 2rem; flex-wrap: wrap;
+  }
+  .stat-num { font-family: var(--font-display); font-size: 2.5rem; font-weight: 800; color: var(--green); }
+  .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
+
+  .blink { animation: blink 1.2s step-end infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  /* SECTIONS */
+  section { padding: 5rem 2.5rem; border-bottom: 1px solid #1e1e1e; }
+  .section-label {
+    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--green); margin-bottom: 3rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: #1e1e1e; }
+  h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; margin-bottom: 2rem; letter-spacing: -1px; }
+
+  /* LAB GRID */
+  .lab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: #1e1e1e; border: 1px solid #1e1e1e; }
+  .lab-cell { background: var(--black); padding: 1.5rem; transition: background 0.2s; }
+  .lab-cell:hover { background: var(--gray); }
+  .lab-cell-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
+  .lab-cell-value { font-size: 13px; color: var(--white); line-height: 1.6; }
+
+  /* CERTS */
+  .cert-list { display: flex; flex-direction: column; gap: 1px; background: #1e1e1e; border: 1px solid #1e1e1e; }
+  .cert-item { background: var(--black); padding: 1.2rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; transition: background 0.2s; }
+  .cert-item:hover { background: var(--gray); }
+  .cert-name { font-size: 14px; font-weight: 700; }
+  .cert-badge {
+    font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 4px 10px; border: 1px solid;
+  }
+  .badge-done { border-color: var(--green); color: var(--green); }
+  .badge-progress { border-color: #f5a623; color: #f5a623; }
+  .badge-planned { border-color: #444; color: var(--muted); }
+
+  /* FOCUS */
+  .focus-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+  .focus-card { border: 1px solid #2a2a2a; padding: 1.5rem; transition: border-color 0.2s; }
+  .focus-card:hover { border-color: var(--green); }
+  .focus-icon { font-size: 20px; margin-bottom: 10px; }
+  .focus-title { font-family: var(--font-display); font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .focus-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* LAB LOG */
+  .log-entry { border-left: 2px solid #2a2a2a; padding: 0 0 1.5rem 1.5rem; margin-bottom: 0; transition: border-color 0.2s; }
+  .log-entry:hover { border-left-color: var(--green); }
+  .log-date { font-size: 11px; color: var(--green); letter-spacing: 0.1em; margin-bottom: 6px; }
+  .log-what { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .log-tools { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+  .log-next { font-size: 12px; color: #555; font-style: italic; }
+
+  /* CONNECT */
+  .connect-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: #1e1e1e; border: 1px solid #1e1e1e; }
+  .connect-card { background: var(--black); padding: 1.5rem; text-decoration: none; display: block; transition: background 0.2s; }
+  .connect-card:hover { background: var(--gray); }
+  .connect-platform { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin-bottom: 6px; }
+  .connect-handle { font-family: var(--font-display); font-size: 16px; font-weight: 700; color: var(--white); }
+
+  /* FOOTER */
+  footer { padding: 2rem 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  footer p { font-size: 11px; color: var(--muted); }
+
+  /* FADE IN */
+  .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 640px) {
+    nav ul { display: none; }
+    .hero { padding: 6rem 1.2rem 3rem; }
+    section { padding: 3rem 1.2rem; }
+    nav { padding: 1rem 1.2rem; }
+    footer { padding: 1.5rem 1.2rem; }
+    .hero-stats { gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">JR<span>.</span></div>
+  <ul>
+    <li><a href="#lab">Lab</a></li>
+    <li><a href="#certs">Certs</a></li>
+    <li><a href="#focus">Focus</a></li>
+    <li><a href="#log">Log</a></li>
+    <li><a href="#connect">Connect</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-tag">Available for opportunities</div>
+  <h1>Joey Raquel<span class="line2">Pentest &amp; Security</span></h1>
+  <p class="hero-sub">
+    Cybersecurity professional and telecom infrastructure engineer transitioning into offensive security.
+    17+ years building critical infrastructure — satellite, fiber, cable, microwave, and data center systems.
+    Now breaking things on purpose.
+  </p>
+  <div class="hero-links">
+    <a href="#connect" class="btn btn-primary">Get in touch</a>
+    <a href="https://github.com/joeyraquel" class="btn btn-secondary" target="_blank">GitHub</a>
+    <a href="https://linkedin.com/in/joeyraquel" class="btn btn-secondary" target="_blank">LinkedIn</a>
+  </div>
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">17+</div>
+      <div class="stat-label">Years in infrastructure</div>
+    </div>
+    <div>
+      <div class="stat-num">5+</div>
+      <div class="stat-label">VMs in home lab</div>
+    </div>
+    <div>
+      <div class="stat-num">1</div>
+      <div class="stat-label">Cert earned, more coming</div>
+    </div>
+  </div>
+</section>
+
+<section id="lab" class="fade-in">
+  <div class="section-label">Home lab</div>
+  <h2>Proxmox Lab Setup</h2>
+  <div class="lab-grid">
+    <div class="lab-cell">
+      <div class="lab-cell-label">Hypervisor</div>
+      <div class="lab-cell-value">Proxmox VE 8.4</div>
+    </div>
+    <div class="lab-cell">
+      <div class="lab-cell-label">Attack</div>
+      <div class="lab-cell-value">Kali Linux, Parrot Security, REMnux</div>
+    </div>
+    <div class="lab-cell">
+      <div class="lab-cell-label">Targets</div>
+      <div class="lab-cell-value">Metasploitable2, DVWA, WordPress vuln, Windows Server 2019, API vuln</div>
+    </div>
+    <div class="lab-cell">
+      <div class="lab-cell-label">Defense</div>
+      <div class="lab-cell-value">Security Onion, Wazuh SIEM, Cowrie Honeypot, PfSense</div>
+    </div>
+    <div class="lab-cell">
+      <div class="lab-cell-label">Network</div>
+      <div class="lab-cell-value">EVE-NG, WireGuard VPN, VLANs</div>
+    </div>
+    <div class="lab-cell">
+      <div class="lab-cell-label">Background</div>
+      <div class="lab-cell-value">Satellite RF · Microwave · GPON/FTTH · HFC/DOCSIS · Nuclear Facility (Palo Verde) · Cisco Enterprise</div>
+    </div>
+  </div>
+</section>
+
+<section id="certs" class="fade-in">
+  <div class="section-label">Certifications</div>
+  <h2>Credentials &amp; Roadmap</h2>
+  <div class="cert-list">
+    <div class="cert-item">
+      <div class="cert-name">Google Cybersecurity Professional</div>
+      <div><span style="font-size:12px;color:var(--muted);margin-right:10px;">Nov 2024</span><span class="cert-badge badge-done">Earned</span></div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-name">eJPT — eLearnSecurity Junior Penetration Tester</div>
+      <div><span style="font-size:12px;color:var(--muted);margin-right:10px;">2026</span><span class="cert-badge badge-progress">In progress</span></div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-name">CompTIA Security+</div>
+      <div><span style="font-size:12px;color:var(--muted);margin-right:10px;">Q3 2026</span><span class="cert-badge badge-planned">Planned</span></div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-name">OSCP — Offensive Security Certified Professional</div>
+      <div><span style="font-size:12px;color:var(--muted);margin-right:10px;">Q4 2026</span><span class="cert-badge badge-planned">Planned</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="focus" class="fade-in">
+  <div class="section-label">Current focus</div>
+  <h2>What I'm Working On</h2>
+  <div class="focus-grid">
+    <div class="focus-card">
+      <div class="focus-title">Penetration Testing Methodology</div>
+      <div class="focus-desc">Recon, scanning, exploitation, post-exploitation — practicing full kill chains in lab.</div>
+    </div>
+    <div class="focus-card">
+      <div class="focus-title">Web Application Security</div>
+      <div class="focus-desc">OWASP Top 10 — SQLi, XSS, IDOR, broken auth via DVWA and vulnerable WordPress.</div>
+    </div>
+    <div class="focus-card">
+      <div class="focus-title">Network Attacks &amp; Defense</div>
+      <div class="focus-desc">VLAN segmentation, pfSense firewall rules, traffic analysis with Security Onion.</div>
+    </div>
+    <div class="focus-card">
+      <div class="focus-title">Active Directory Security</div>
+      <div class="focus-desc">Building AD lab to practice enumeration, Kerberoasting, lateral movement.</div>
+    </div>
+    <div class="focus-card">
+      <div class="focus-title">CTF Challenges</div>
+      <div class="focus-desc">Hack The Box and TryHackMe rooms to sharpen real-world attack scenarios.</div>
+    </div>
+    <div class="focus-card">
+      <div class="focus-title">Critical Infrastructure</div>
+      <div class="focus-desc">Applying 17+ years of telecom/OT knowledge to ICS/SCADA security research.</div>
+    </div>
+  </div>
+</section>
+
+<section id="log" class="fade-in">
+  <div class="section-label">Lab log</div>
+  <h2>Daily Progress</h2>
+  <div style="display:flex;flex-direction:column;gap:0;">
+    <div class="log-entry">
+      <div class="log-date">2026-04-08</div>
+      <div class="log-what">Installed Proxmox VE 8.4, created VMs, configured VLANs, deployed pfSense, Kali, Security Onion, Wazuh SIEM</div>
+      <div class="log-tools">Tools: Proxmox, pfSense, Kali Linux, Security Onion, Wazuh</div>
+      <div class="log-next">Next: Explore Metasploitable2, begin eJPT labs</div>
+    </div>
+  </div>
+  <p style="font-size:12px;color:var(--muted);margin-top:2rem;">Updated regularly as the lab grows.</p>
+</section>
+
+<section id="connect" class="fade-in">
+  <div class="section-label">Connect</div>
+  <h2>Get In Touch</h2>
+  <div class="connect-grid">
+    <a class="connect-card" href="https://linkedin.com/in/joeyraquel" target="_blank">
+      <div class="connect-platform">LinkedIn</div>
+      <div class="connect-handle">joeyraquel</div>
+    </a>
+    <a class="connect-card" href="https://github.com/joeyraquel" target="_blank">
+      <div class="connect-platform">GitHub</div>
+      <div class="connect-handle">joeyraquel</div>
+    </a>
+    <a class="connect-card" href="mailto:joeyraquel@gmail.com">
+      <div class="connect-platform">Email</div>
+      <div class="connect-handle">joeyraquel@gmail.com</div>
+    </a>
+    <div class="connect-card">
+      <div class="connect-platform">Location</div>
+      <div class="connect-handle">Honolulu, HI</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Joey Raquel — Penetration Tester &amp; Security Researcher</p>
+  <p style="color:#333;">joeyraquel.github.io</p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
