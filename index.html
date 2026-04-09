@@ -4,109 +4,153 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Joey Raquel — Penetration Tester</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #f2f1ed;
-    --bg2: #e8e7e2;
-    --white: #ffffff;
-    --black: #1a1917;
-    --text: #2c2b28;
-    --muted: #7a7974;
-    --accent: #2563a8;
-    --accent-light: #e8f0fb;
-    --border: #d4d3ce;
-    --font: 'DM Sans', sans-serif;
-    --font-serif: 'DM Serif Display', serif;
+    --dark:    #1e1e1e;
+    --dark2:   #2a2a2a;
+    --dark3:   #333333;
+    --gray:    #3d3d3d;
+    --yellow:  #f5c518;
+    --yellow2: #e0b010;
+    --white:   #ffffff;
+    --offwhite:#e8e8e8;
+    --muted:   #9a9a9a;
+    --font:    'Montserrat', sans-serif;
+    --body:    'Open Sans', sans-serif;
   }
 
   html { scroll-behavior: smooth; }
-  body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 16px; line-height: 1.7; }
+  body { background: var(--dark); color: var(--white); font-family: var(--body); font-size: 16px; line-height: 1.7; }
 
+  /* NAV */
   nav {
     position: sticky; top: 0; z-index: 100;
-    background: var(--white); border-bottom: 1px solid var(--border);
+    background: var(--dark2);
+    border-bottom: 2px solid var(--yellow);
     display: flex; justify-content: space-between; align-items: center;
-    padding: 1rem 3rem;
+    padding: 1.1rem 3rem;
   }
-  .nav-logo { font-family: var(--font-serif); font-size: 22px; color: var(--black); }
-  .nav-logo span { color: var(--accent); }
+  .nav-logo {
+    font-family: var(--font); font-size: 20px; font-weight: 800;
+    color: var(--white); letter-spacing: 1px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .nav-logo-icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--yellow); display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; color: var(--dark);
+  }
   nav ul { list-style: none; display: flex; gap: 2rem; }
-  nav a { color: var(--muted); text-decoration: none; font-size: 15px; font-weight: 500; transition: color 0.2s; }
-  nav a:hover { color: var(--accent); }
+  nav a { color: var(--offwhite); text-decoration: none; font-family: var(--font); font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+  nav a:hover { color: var(--yellow); }
 
+  /* HERO */
   .hero {
-    background: var(--white); border-bottom: 1px solid var(--border);
-    padding: 5rem 3rem 4rem;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+    border-bottom: 3px solid var(--yellow);
+    padding: 7rem 3rem 6rem;
+    position: relative; overflow: hidden;
   }
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; right: 0; bottom: 0;
+    width: 40%; background: var(--dark2); clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+  }
+  .hero-inner { position: relative; z-index: 1; max-width: 640px; }
   .hero-tag {
     display: inline-flex; align-items: center; gap: 8px;
-    background: var(--accent-light); color: var(--accent);
-    font-size: 13px; font-weight: 500; padding: 6px 14px;
-    border-radius: 100px; margin-bottom: 1.5rem;
+    background: var(--yellow); color: var(--dark);
+    font-family: var(--font); font-size: 12px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 7px 16px; margin-bottom: 1.8rem;
   }
-  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
-  h1 { font-family: var(--font-serif); font-size: clamp(2.6rem, 5vw, 4rem); line-height: 1.1; letter-spacing: -1px; color: var(--black); margin-bottom: 1.2rem; }
-  h1 em { color: var(--accent); font-style: normal; }
-  .hero-sub { font-size: 17px; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
-  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
-  .btn { display: inline-block; padding: 13px 26px; font-family: var(--font); font-size: 15px; font-weight: 500; text-decoration: none; border-radius: 8px; border: 1.5px solid; transition: all 0.2s; }
-  .btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
-  .btn-primary:hover { background: #1d4f8a; }
-  .btn-outline { background: transparent; color: var(--text); border-color: var(--border); }
-  .btn-outline:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+  .hero-tag-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--dark); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .hero-greeting { font-family: var(--font); font-size: 20px; font-weight: 500; color: var(--muted); margin-bottom: 0.5rem; letter-spacing: 2px; text-transform: uppercase; }
+  h1 {
+    font-family: var(--font); font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 800; line-height: 1.05; letter-spacing: -1px;
+    color: var(--white); margin-bottom: 0.5rem;
+  }
+  h1 .yellow { color: var(--yellow); }
+  .hero-title2 { font-family: var(--font); font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 600; color: var(--muted); margin-bottom: 1.5rem; }
+  .hero-sub { font-size: 16px; color: var(--offwhite); line-height: 1.85; margin-bottom: 2.5rem; max-width: 520px; }
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 14px 30px;
+    font-family: var(--font); font-size: 13px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    text-decoration: none; transition: all 0.2s; cursor: pointer;
+  }
+  .btn-yellow { background: var(--yellow); color: var(--dark); border: 2px solid var(--yellow); }
+  .btn-yellow:hover { background: var(--yellow2); border-color: var(--yellow2); }
+  .btn-outline { background: transparent; color: var(--white); border: 2px solid #555; }
+  .btn-outline:hover { border-color: var(--yellow); color: var(--yellow); }
 
-  .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .stat-card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
-  .stat-num { font-family: var(--font-serif); font-size: 2.6rem; color: var(--accent); line-height: 1; margin-bottom: 4px; }
-  .stat-label { font-size: 13px; color: var(--muted); font-weight: 500; }
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 4rem;
+    padding-top: 2.5rem; border-top: 1px solid #3a3a3a;
+    flex-wrap: wrap;
+  }
+  .stat-num { font-family: var(--font); font-size: 2.4rem; font-weight: 800; color: var(--yellow); line-height: 1; }
+  .stat-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; font-family: var(--font); font-weight: 600; }
 
-  section { padding: 4.5rem 3rem; border-bottom: 1px solid var(--border); }
-  .section-tag { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
-  h2 { font-family: var(--font-serif); font-size: clamp(2rem, 3.5vw, 2.6rem); color: var(--black); margin-bottom: 2rem; letter-spacing: -0.5px; }
+  /* SECTIONS */
+  section { padding: 5rem 3rem; border-bottom: 1px solid #2e2e2e; }
+  .section-tag { font-family: var(--font); font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--yellow); margin-bottom: 10px; }
+  h2 { font-family: var(--font); font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800; color: var(--white); margin-bottom: 2rem; letter-spacing: -0.5px; }
+  h2 span { color: var(--yellow); }
 
-  .lab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
-  .lab-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; transition: border-color 0.2s; }
-  .lab-card:hover { border-color: var(--accent); }
-  .lab-card-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
-  .lab-card-value { font-size: 15px; color: var(--text); line-height: 1.6; }
+  /* LAB */
+  .lab-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 2px; background: #2e2e2e; border: 2px solid #2e2e2e; }
+  .lab-card { background: var(--dark2); padding: 1.6rem; transition: background 0.2s; }
+  .lab-card:hover { background: var(--dark3); }
+  .lab-card-label { font-family: var(--font); font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--yellow); margin-bottom: 10px; }
+  .lab-card-value { font-size: 15px; color: var(--offwhite); line-height: 1.6; }
 
-  .cert-list { display: flex; flex-direction: column; gap: 12px; }
-  .cert-item { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; transition: border-color 0.2s; }
-  .cert-item:hover { border-color: var(--accent); }
-  .cert-name { font-size: 16px; font-weight: 500; color: var(--black); }
-  .cert-year { font-size: 13px; color: var(--muted); }
-  .badge { font-size: 12px; font-weight: 600; padding: 5px 14px; border-radius: 100px; }
-  .badge-done { background: #dcfce7; color: #15803d; }
-  .badge-progress { background: #fef9c3; color: #a16207; }
-  .badge-planned { background: var(--bg2); color: var(--muted); }
+  /* CERTS */
+  .cert-list { display: flex; flex-direction: column; gap: 2px; background: #2e2e2e; border: 2px solid #2e2e2e; }
+  .cert-item { background: var(--dark2); padding: 1.3rem 1.6rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; transition: background 0.2s; }
+  .cert-item:hover { background: var(--dark3); }
+  .cert-name { font-family: var(--font); font-size: 15px; font-weight: 600; color: var(--white); }
+  .cert-year { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .badge { font-family: var(--font); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; padding: 5px 14px; text-transform: uppercase; }
+  .badge-done { background: var(--yellow); color: var(--dark); }
+  .badge-progress { background: transparent; color: var(--yellow); border: 1.5px solid var(--yellow); }
+  .badge-planned { background: transparent; color: var(--muted); border: 1.5px solid #444; }
 
+  /* FOCUS */
   .focus-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; }
-  .focus-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; transition: border-color 0.2s; }
-  .focus-card:hover { border-color: var(--accent); }
-  .focus-title { font-size: 15px; font-weight: 700; color: var(--black); margin-bottom: 6px; }
-  .focus-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .focus-card { background: var(--dark2); border: 1px solid #333; border-left: 3px solid var(--yellow); padding: 1.5rem; transition: background 0.2s; }
+  .focus-card:hover { background: var(--dark3); }
+  .focus-title { font-family: var(--font); font-size: 14px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+  .focus-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
 
+  /* LOG */
   .log-list { display: flex; flex-direction: column; gap: 16px; }
-  .log-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; transition: border-color 0.2s; }
-  .log-card:hover { border-color: var(--accent); }
-  .log-date { font-size: 12px; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
-  .log-what { font-size: 15px; font-weight: 500; color: var(--black); margin-bottom: 6px; }
+  .log-card { background: var(--dark2); border: 1px solid #333; border-left: 3px solid var(--yellow); padding: 1.5rem; transition: background 0.2s; }
+  .log-card:hover { background: var(--dark3); }
+  .log-date { font-family: var(--font); font-size: 11px; font-weight: 700; color: var(--yellow); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
+  .log-what { font-size: 15px; font-weight: 500; color: var(--white); margin-bottom: 6px; }
   .log-meta { font-size: 13px; color: var(--muted); }
-  .log-next { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .log-next { font-size: 13px; color: var(--muted); margin-top: 4px; font-style: italic; }
 
+  /* CONNECT */
   .connect-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
-  .connect-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; text-decoration: none; display: block; transition: border-color 0.2s; }
-  .connect-card:hover { border-color: var(--accent); }
-  .connect-platform { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
-  .connect-handle { font-size: 16px; font-weight: 500; color: var(--black); }
+  .connect-card { background: var(--dark2); border: 1px solid #333; padding: 1.6rem; text-decoration: none; display: block; transition: border-color 0.2s, background 0.2s; }
+  .connect-card:hover { border-color: var(--yellow); background: var(--dark3); }
+  .connect-platform { font-family: var(--font); font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--yellow); margin-bottom: 8px; }
+  .connect-handle { font-family: var(--font); font-size: 16px; font-weight: 600; color: var(--white); }
 
-  footer { background: var(--white); padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; border-top: 1px solid var(--border); }
-  footer p { font-size: 14px; color: var(--muted); }
+  footer {
+    background: var(--dark2); border-top: 2px solid var(--yellow);
+    padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+  }
+  footer p { font-family: var(--font); font-size: 13px; color: var(--muted); }
+  footer span { color: var(--yellow); }
 
   .fade-in { opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease; }
   .fade-in.visible { opacity: 1; transform: translateY(0); }
@@ -114,16 +158,21 @@
   @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; }
     nav ul { display: none; }
-    .hero { grid-template-columns: 1fr; padding: 3rem 1.5rem; gap: 2.5rem; }
+    .hero { padding: 4rem 1.5rem 3rem; }
+    .hero::before { display: none; }
     section { padding: 3rem 1.5rem; }
     footer { padding: 1.5rem; }
+    .hero-stats { gap: 2rem; }
   }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-logo">Joey Raquel<span>.</span></div>
+  <div class="nav-logo">
+    <div class="nav-logo-icon">JR</div>
+    Joey Raquel
+  </div>
   <ul>
     <li><a href="#lab">Lab</a></li>
     <li><a href="#certs">Certs</a></li>
@@ -134,27 +183,29 @@
 </nav>
 
 <div class="hero">
-  <div>
-    <div class="hero-tag"><span class="dot"></span> Open to opportunities</div>
-    <h1>Penetration Tester &amp; <em>Security Researcher</em></h1>
-    <p class="hero-sub">Cybersecurity professional with 17+ years in critical infrastructure — satellite, fiber, cable, microwave, and data centers. Now focused on offensive security.</p>
+  <div class="hero-inner">
+    <div class="hero-tag"><span class="hero-tag-dot"></span> Open to opportunities</div>
+    <div class="hero-greeting">Hello, I'm</div>
+    <h1>Joey <span class="yellow">Raquel</span></h1>
+    <div class="hero-title2">Penetration Tester & Security Researcher</div>
+    <p class="hero-sub">Cybersecurity professional with 17+ years in critical infrastructure — satellite, fiber, cable, microwave, and data centers. Now breaking things on purpose in a fully-equipped Proxmox home lab.</p>
     <div class="hero-btns">
-      <a href="#connect" class="btn btn-primary">Get in touch</a>
+      <a href="#connect" class="btn btn-yellow">Get in touch</a>
       <a href="https://linkedin.com/in/joeyraquel" class="btn btn-outline" target="_blank">LinkedIn</a>
       <a href="https://github.com/joeyraquel" class="btn btn-outline" target="_blank">GitHub</a>
     </div>
-  </div>
-  <div class="hero-stats">
-    <div class="stat-card"><div class="stat-num">17+</div><div class="stat-label">Years in infrastructure</div></div>
-    <div class="stat-card"><div class="stat-num">5+</div><div class="stat-label">VMs in home lab</div></div>
-    <div class="stat-card"><div class="stat-num">eJPT</div><div class="stat-label">In progress 2026</div></div>
-    <div class="stat-card"><div class="stat-num">HNL</div><div class="stat-label">Honolulu, Hawaii</div></div>
+    <div class="hero-stats">
+      <div><div class="stat-num">17+</div><div class="stat-label">Years in infrastructure</div></div>
+      <div><div class="stat-num">5+</div><div class="stat-label">VMs in home lab</div></div>
+      <div><div class="stat-num">eJPT</div><div class="stat-label">In progress</div></div>
+      <div><div class="stat-num">HNL</div><div class="stat-label">Honolulu, HI</div></div>
+    </div>
   </div>
 </div>
 
 <section id="lab" class="fade-in">
   <div class="section-tag">Home lab</div>
-  <h2>Proxmox Lab Setup</h2>
+  <h2>Proxmox <span>Lab Setup</span></h2>
   <div class="lab-grid">
     <div class="lab-card"><div class="lab-card-label">Hypervisor</div><div class="lab-card-value">Proxmox VE 8.4</div></div>
     <div class="lab-card"><div class="lab-card-label">Attack machines</div><div class="lab-card-value">Kali Linux, Parrot Security, REMnux</div></div>
@@ -167,7 +218,7 @@
 
 <section id="certs" class="fade-in">
   <div class="section-tag">Certifications</div>
-  <h2>Credentials &amp; Roadmap</h2>
+  <h2>Credentials <span>&amp; Roadmap</span></h2>
   <div class="cert-list">
     <div class="cert-item">
       <div><div class="cert-name">Google Cybersecurity Professional</div><div class="cert-year">Earned November 2024</div></div>
@@ -190,11 +241,11 @@
 
 <section id="focus" class="fade-in">
   <div class="section-tag">Current focus</div>
-  <h2>What I'm Working On</h2>
+  <h2>What I'm <span>Working On</span></h2>
   <div class="focus-grid">
     <div class="focus-card"><div class="focus-title">Penetration Testing Methodology</div><div class="focus-desc">Full kill chains — recon, scanning, exploitation, post-exploitation in isolated lab.</div></div>
     <div class="focus-card"><div class="focus-title">Web Application Security</div><div class="focus-desc">OWASP Top 10 via DVWA and vulnerable WordPress — SQLi, XSS, IDOR, broken auth.</div></div>
-    <div class="focus-card"><div class="focus-title">Network Attacks &amp; Defense</div><div class="focus-desc">VLAN segmentation, pfSense firewall rules, traffic analysis with Security Onion.</div></div>
+    <div class="focus-card"><div class="focus-title">Network Attacks & Defense</div><div class="focus-desc">VLAN segmentation, pfSense firewall rules, traffic analysis with Security Onion.</div></div>
     <div class="focus-card"><div class="focus-title">Active Directory Security</div><div class="focus-desc">Enumeration, Kerberoasting, and lateral movement practice in AD lab.</div></div>
     <div class="focus-card"><div class="focus-title">CTF Challenges</div><div class="focus-desc">Hack The Box and TryHackMe rooms for real-world attack scenarios.</div></div>
     <div class="focus-card"><div class="focus-title">Critical Infrastructure Security</div><div class="focus-desc">Applying 17+ years of telecom/OT knowledge to ICS/SCADA security research.</div></div>
@@ -203,7 +254,7 @@
 
 <section id="log" class="fade-in">
   <div class="section-tag">Lab log</div>
-  <h2>Daily Progress</h2>
+  <h2>Daily <span>Progress</span></h2>
   <div class="log-list">
     <div class="log-card">
       <div class="log-date">April 8, 2026</div>
@@ -216,7 +267,7 @@
 
 <section id="connect" class="fade-in">
   <div class="section-tag">Connect</div>
-  <h2>Get In Touch</h2>
+  <h2>Get <span>In Touch</span></h2>
   <div class="connect-grid">
     <a class="connect-card" href="https://linkedin.com/in/joeyraquel" target="_blank">
       <div class="connect-platform">LinkedIn</div>
@@ -238,7 +289,7 @@
 </section>
 
 <footer>
-  <p>© 2026 Joey Raquel — Penetration Tester & Security Researcher</p>
+  <p>© 2026 <span>Joey Raquel</span> — Penetration Tester & Security Researcher</p>
   <p>joeyraquel.github.io</p>
 </footer>
 
