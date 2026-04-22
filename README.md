@@ -1,100 +1,213 @@
-🔐 Pentest Lab Trainer — USB Edition
+# 🔐 Pentest Lab Trainer — USB Edition
 
-A portable, offline penetration testing training program that runs off a USB drive.
-Real commands. Real methodology. Your own Proxmox home lab.
+![Offline](https://img.shields.io/badge/Mode-Offline-green)
+![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20Mac-blue)
+![Python](https://img.shields.io/badge/Python-3.x-yellow)
+![Status](https://img.shields.io/badge/Status-Active-success)
+![License](https://img.shields.io/badge/License-Educational-lightgrey)
 
+## 🚀 Overview
 
-What This Is
-A self-contained pentest training program built as a local web app. Plug the USB into any PC, double-click START.bat, and your browser opens a fully guided lab environment — step-by-step missions with real executable commands, branching result confirmation, and progress that saves to the USB itself.
-This is not a course. It's an operations guide you run live.
+A **portable, offline penetration testing training platform** that runs directly from a USB drive.
 
-Features
+> Real commands. Real methodology. Real lab.
 
-✅ 8-phase pentest methodology — full offensive lifecycle
-✅ Real commands — not pseudocode. Copy → paste → run in Kali
-✅ Guided missions — do this → here's why → what did you see? → continue
-✅ Branching responses — different guidance based on your actual result
-✅ Progress saves to USB — plug into any PC, pick up exactly where you left off
-✅ Fully offline — no internet required, no account, no subscription
-✅ localhost fallback — also saves to browser localStorage as backup
+Built as a **local web app + Proxmox lab**, this tool walks you through actual offensive security workflows — not theory.# 🔐 Pentest Lab Trainer — USB Edition
 
+![Offline](https://img.shields.io/badge/Mode-Offline-green)
+![Platform](https://img.shields.io/badge/Platform-Windows%7CLinux%7CMac-blue)
+![Python](https://img.shields.io/badge/Python-3.x-yellow)
+![Status](https://img.shields.io/badge/Status-Active-success)
+![License](https://img.shields.io/badge/License-Educational-lightgrey)
 
-The 8 Phases
-#PhaseKey Tools01ReconnaissanceNmap, theHarvester, dig, crt.sh02Scanning & Enumerationenum4linux, Gobuster, WPScan, Nikto03Gaining AccessMetasploit, msfvenom, Hydra, Netcat04Post ExploitationLinPEAS, WinPEAS, GTFOBins, Hashcat05Covering Tracksauditd, Wazuh SIEM review06ReportingCVSS 3.1 scoring, professional finding format07C2 / Command & ControlSliver C2, MSF multi/handler, pivoting08WiFi Hackingaircrack-ng, hashcat, hcxdumptool, Reaver
+## 🚀 Overview
 
-Home Lab Targets (Proxmox)
-VMNameIPPurposeVM200Kali Linux192.168.1.200AttackerVM150Metasploitable2192.168.1.150Primary targetVM140DVWA-Ubuntu192.168.1.140Web app attacksVM135Wp-Vuln192.168.1.135WordPress exploitationVM141Webgoat192.168.1.141OWASP web vulnerabilitiesVM142Juiceshop192.168.1.142Modern web app attacksVM143Badstore192.168.1.143E-commerce vulnerabilitiesVM145Api-Vuln192.168.1.145API security testingVM156Metasploitable3192.168.1.156Windows exploitationVM125Windows 11192.168.1.125Windows attacksVM181Winserver 2022192.168.1.181Active DirectoryVM190REMnux192.168.1.190Malware analysisVM191Flare-VM192.168.1.191Reverse engineeringVM210Wazuh-Rocky192.168.1.210SIEM / detectionVM211Bloodhound192.168.1.211AD attack pathsVM245Scadabr192.168.1.245ICS/SCADA attacksVM246OpenPLC192.168.1.246PLC exploitation
+A **portable, offline penetration testing training platform** that runs directly from a USB drive.
 
-How to Use
-Requirements
+> Real commands. Real methodology. Real lab.
 
-Python 3 (free — python.org)
-Any modern browser (Chrome, Firefox, Edge)
+Built as a **local web app + Proxmox lab**, this tool walks you through actual offensive security workflows — not theory.
 
-Run It
-Windows:
-Double-click START.bat
-Mac / Linux:
-bashbash start.sh
-Browser opens automatically to http://localhost:8080.
-Progress saves to progress.json on the USB drive.
+## ⚡ Quick Start
 
-File Structure
+```bash
+# Windows
+START.bat
+
+# Linux / Mac
+bash start.sh
+```
+
+Then open:
+
+```
+http://localhost:8080
+```
+
+## 🧠 What Makes This Different
+
+* Not a course
+* Not slides
+* Not theory
+
+👉 This is a **live operational training system**
+
+You:
+
+* Run real commands in Kali
+* Validate real results
+* Move forward only when it works
+
+## 🧩 Features
+
+* ✅ Full 8-phase pentest lifecycle
+* ✅ Real tools (Nmap, Metasploit, etc.)
+* ✅ Step-by-step missions
+* ✅ Branching logic based on results
+* ✅ Fully offline (no accounts, no cloud)
+* ✅ USB-based progress tracking
+* ✅ Resume anywhere on any machine
+
+## 🧠 Pentest Methodology
+
+| Phase | Focus             | Tools              |
+| ----- | ----------------- | ------------------ |
+| 01    | Recon             | Nmap, theHarvester |
+| 02    | Enumeration       | Gobuster, WPScan   |
+| 03    | Exploitation      | Metasploit, Hydra  |
+| 04    | Post-Exploitation | LinPEAS, WinPEAS   |
+| 05    | Cover Tracks      | auditd, Wazuh      |
+| 06    | Reporting         | CVSS               |
+| 07    | C2                | Sliver, MSF        |
+| 08    | WiFi              | aircrack-ng        |
+
+## 🧪 Lab Architecture (Proxmox)
+
+```
+Attacker (Kali)
+     ↓
+Targets:
+- Metasploitable
+- DVWA
+- WordPress Vuln
+- WebGoat / Juice Shop
+- Windows / AD
+- SIEM (Wazuh)
+- ICS (ScadaBR / OpenPLC)
+```
+
+## 🖥️ Home Lab Targets
+
+| System          | IP             | Role     |
+| --------------- | -------------- | -------- |
+| Kali            | 192.168.1.200  | Attacker |
+| Metasploitable2 | 192.168.1.150  | Target   |
+| DVWA            | 192.168.1.140  | Web      |
+| WP Vuln         | 192.168.1.135  | CMS      |
+| Windows 11      | 192.168.1.125  | Endpoint |
+| Win Server 2022 | 192.168.1.181  | AD       |
+| Wazuh           | 192.168.1.210  | SIEM     |
+| REMnux          | 192.168.1.190  | Malware  |
+| ICS Lab         | 192.168.1.245+ | SCADA    |
+
+## 📂 Project Structure
+
+```
 PentestLab/
-├── START.bat          ← Windows launcher (double-click)
-├── start.sh           ← Mac/Linux launcher
-├── server.py          ← Python web server (handles progress save/load)
-├── index.html         ← Full training program app
-├── progress.json      ← Your saved progress (travels with USB)
-└── README.txt         ← Quick start instructions
+├── START.bat
+├── start.sh
+├── server.py
+├── index.html
+├── progress.json
+└── README.txt
+```
 
-How Progress Saving Works
+## 💾 Persistence System
 
-App loads → tries to fetch /progress from local Python server
-Server reads progress.json from USB directory
-On every checkpoint → POST to /progress → server writes to USB
-Fallback: always mirrors to browser localStorage as backup
+* Progress saved to:
 
-This means your progress follows the USB — not the browser, not the PC.
+```
+progress.json (USB)
+```
 
-Sample Mission — Phase 01, Mission 01, Step 02
-TITLE:    Ping VM135 — Wp-Vuln
-RUN ON:   VM200 Kali Linux (192.168.1.200)
-TARGET:   VM135 Wp-Vuln (192.168.1.135)
+* Backup:
 
-COMMAND:
-  ping -c 4 192.168.1.135
+```
+browser localStorage
+```
 
-WHY THIS WORKS:
-  ping uses ICMP echo requests. A reply = host is up and your
-  network path to it works. -c 4 sends exactly 4 packets then stops.
+👉 Your training moves with you.
 
-WHAT DID YOU SEE?
-  ○ Got replies — 0% packet loss    → VM135 is live, continue
-  ○ Request timeout / 100% loss     → Start VM135 in Proxmox, retry
-  ○ Network error / unknown host    → Check Kali IP with 'ip a'
+## 🎯 Example Mission
 
-Certification Path
-This program maps directly to:
-CertCoverageeJPTPhases 01–03CompTIA Security+Phases 01, 02, 06OSCPAll phases — especially 03, 04, 07GICSPPhase 08 ICS/SCADA targets
+```
+ping -c 4 192.168.1.135
+```
 
-About the Author
-Joey Raquel — Telecom infrastructure professional with 17+ years across satellite RF, microwave, GPON/FTTH, HFC/DOCSIS, nuclear facility, and enterprise Cisco environments. Transitioning into offensive cybersecurity targeting penetration testing and security analyst roles at defense and government contracting firms.
+**Goal:** Verify target is alive
 
-🔗 LinkedIn
-🌐 Portfolio
-📍 Honolulu, HI
+| Result  | Meaning       |
+| ------- | ------------- |
+| Replies | Target up     |
+| Timeout | VM down       |
+| Error   | Network issue |
+
+## 🎓 Certification Alignment
+
+| Cert      | Coverage        |
+| --------- | --------------- |
+| eJPT      | Recon → Exploit |
+| Security+ | Fundamentals    |
+| OSCP      | Full lifecycle  |
+| GICSP     | ICS focus       |
+
+## 🛣️ Roadmap
+
+* [ ] WordPress exploitation missions
+* [ ] OWASP Top 10 (WebGoat + Juice Shop)
+* [ ] Active Directory attack paths
+* [ ] ICS/SCADA scenarios
+* [ ] VPS remote lab access
+* [ ] Auto-report generator
+
+## 👤 Author
+
+**Joey Raquel**
+Telecom → Cybersecurity Transition
+
+* Satellite / RF / ISP / Cisco
+* 17+ years infrastructure experience
+* Building offensive security skillset
+
+## ⚖️ Legal
+
+This project is for:
+
+✔ Personal lab environments
+✔ Authorized testing only
+
+🚫 Do NOT use on unauthorized systems.
+
+## ⭐ Why This Project Matters
+
+Most people:
+
+* Watch courses
+* Take notes
+* Forget everything
+
+This forces you to:
+
+* Execute
+* Validate
+* Think like an attacker
 
 
-Legal Notice
-This tool is built for use against systems you own or have explicit written authorization to test. All lab targets are intentionally vulnerable VMs running in a private Proxmox home lab. Never use these techniques against systems you don't own or have permission to test.
+## ⚡ Quick Start
 
-Roadmap
+```bash
+# Windows
+START.bat
 
- WordPress attack + defense missions
- Webgoat full OWASP Top 10 mission set
- Juiceshop modern web app mission set
- Bloodhound / Active Directory attack path missions
- ICS/SCADA Scadabr + OpenPLC exploitation missions
- VPS deployment with WireGuard-only access + login screen
- Automated report generator from completed missions
+# Linux / Mac
+bash start.sh
