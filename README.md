@@ -1,20 +1,6 @@
 # 🔐 Pentest Lab Trainer — USB Edition
 
 ![Offline](https://img.shields.io/badge/Mode-Offline-green)
-![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20Mac-blue)
-![Python](https://img.shields.io/badge/Python-3.x-yellow)
-![Status](https://img.shields.io/badge/Status-Active-success)
-![License](https://img.shields.io/badge/License-Educational-lightgrey)
-
-## 🚀 Overview
-
-A **portable, offline penetration testing training platform** that runs directly from a USB drive.
-
-> Real commands. Real methodology. Real lab.
-
-Built as a **local web app + Proxmox lab**, this tool walks you through actual offensive security workflows — not theory.# 🔐 Pentest Lab Trainer — USB Edition
-
-![Offline](https://img.shields.io/badge/Mode-Offline-green)
 ![Platform](https://img.shields.io/badge/Platform-Windows%7CLinux%7CMac-blue)
 ![Python](https://img.shields.io/badge/Python-3.x-yellow)
 ![Status](https://img.shields.io/badge/Status-Active-success)
@@ -201,13 +187,3 @@ This forces you to:
 * Execute
 * Validate
 * Think like an attacker
-
-
-## ⚡ Quick Start
-
-```bash
-# Windows
-START.bat
-
-# Linux / Mac
-bash start.sh
