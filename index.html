@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Joey Raquel — Cybersecurity Professional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@200;300;400;600;700;900&family=Barlow:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --orange:#f97316;
+  --orange-dim:#ea6c0a;
+  --gold:#c9922a;
+  --white:#ffffff;
+  --off-white:#e8e4dc;
+  --text:#c8c4bc;
+  --text-dim:#888;
+  --text-muted:#555;
+  --bg:#0a0a0a;
+  --bg2:#111;
+  --bg3:#181818;
+  --border:rgba(255,255,255,0.08);
+  --border-o:rgba(249,115,22,0.3);
+  --mono:'JetBrains Mono',monospace;
+  --display:'Barlow Condensed',sans-serif;
+  --body:'Barlow',sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--body);overflow-x:hidden;}
+
+/* ============================================================
+   CINEMATIC OPENING
+   ============================================================ */
+#cinema{
+  position:fixed;inset:0;z-index:200;
+  overflow:hidden;
+  cursor:pointer;
+}
+
+/* Ken Burns zoom on the photo */
+.cinema-bg{
+  position:absolute;inset:-10%;
+  background:url("bg.jpg") center 30% / cover no-repeat;
+  animation:kenBurns 8s ease-out forwards;
+}
+@keyframes kenBurns{
+  from{transform:scale(1.15);filter:brightness(0.15) saturate(1.2);}
+  to{transform:scale(1);filter:brightness(0.5) saturate(1.3);}
+}
+
+/* Dark vignette */
+.cinema-vignette{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.88) 100%),linear-gradient(to bottom,rgba(0,0,0,0.65) 0%,rgba(0,0,0,0.15) 35%,rgba(0,0,0,0.15) 65%,rgba(0,0,0,0.9) 100%);
+}
+
+/* Film grain overlay */
+.cinema-grain{
+  position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+  opacity:0.4;pointer-events:none;
+}
+
+.cinema-content{
+  position:absolute;inset:0;z-index:2;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+
+/* Film intro label */
+.cinema-label{
+  font-family:var(--mono);font-size:11px;
+  letter-spacing:0.35em;text-transform:uppercase;
+  color:rgba(255,255,255,0.35);
+  margin-bottom:2rem;
+  opacity:0;
+  animation:fadeUp 0.8s 1.8s ease forwards;
+}
+
+/* THE NAME */
+.cinema-name{
+  font-family:var(--display);
+  font-size:clamp(5rem,16vw,18rem);
+  font-weight:900;
+  line-height:0.88;
+  text-align:center;
+  color:var(--white);
+  letter-spacing:-0.01em;
+  text-shadow:0 0 80px rgba(0,0,0,0.8),0 4px 40px rgba(0,0,0,0.9);
+  opacity:0;
+  animation:nameReveal 1.4s 0.6s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+@keyframes nameReveal{
+  from{opacity:0;transform:translateY(30px) scale(0.96);}
+  to{opacity:1;transform:translateY(0) scale(1);}
+}
+
+/* Orange line */
+.cinema-line{
+  width:100vw;height:1.5px;
+  background:linear-gradient(90deg,transparent,var(--orange),transparent);
+  box-shadow:0 0 20px var(--orange),0 0 60px rgba(249,115,22,0.25);
+  margin:2rem 0;
+  opacity:0;transform-origin:center;transform:scaleX(0);
+  animation:lineReveal 1.2s 1.6s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+@keyframes lineReveal{
+  from{opacity:0;transform:scaleX(0);}
+  to{opacity:1;transform:scaleX(1);}
+}
+
+/* Title */
+.cinema-title{
+  font-family:var(--mono);
+  font-size:clamp(10px,1.1vw,14px);
+  letter-spacing:0.3em;
+  color:var(--orange);
+  text-transform:uppercase;
+  text-align:center;
+  opacity:0;
+  animation:fadeUp 0.8s 2.2s ease forwards;
+}
+
+/* Location */
+.cinema-location{
+  font-family:var(--mono);font-size:11px;
+  color:rgba(255,255,255,0.25);
+  letter-spacing:0.2em;text-transform:uppercase;
+  margin-top:0.75rem;
+  opacity:0;
+  animation:fadeUp 0.8s 2.5s ease forwards;
+}
+
+/* Social links */
+.cinema-socials{
+  display:flex;gap:2.5rem;margin-top:3rem;
+  opacity:0;
+  animation:fadeUp 0.8s 2.8s ease forwards;
+}
+.cinema-socials a{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.15em;
+  text-transform:uppercase;color:rgba(255,255,255,0.35);
+  text-decoration:none;transition:color 0.3s;
+}
+.cinema-socials a:hover{color:var(--orange);}
+
+/* Scroll cue */
+.cinema-scroll{
+  position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  opacity:0;
+  animation:fadeUp 0.8s 3.2s ease forwards, bob 2.5s 4s ease infinite;
+  z-index:3;
+}
+.cinema-scroll-line{
+  width:1px;height:40px;
+  background:linear-gradient(to bottom,transparent,var(--orange));
+}
+.cinema-scroll-text{
+  font-family:var(--mono);font-size:9px;color:rgba(255,255,255,0.25);
+  letter-spacing:0.2em;text-transform:uppercase;
+}
+
+#cinema.exit{animation:cinemaExit 1s ease forwards;}
+@keyframes cinemaExit{to{opacity:0;visibility:hidden;}}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-8px);}}
+
+/* ============================================================
+   MAIN CONTENT
+   ============================================================ */
+#main{opacity:0;transition:opacity 1s ease;}
+#main.show{opacity:1;}
+
+/* Fixed bg for whole page */
+#main::before{
+  content:'';
+  position:fixed;inset:0;z-index:-1;
+  background:url("bg.jpg") center 20% / cover fixed no-repeat;
+  filter:brightness(0.30) saturate(0.9) contrast(1.05);
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.25rem 3rem;
+  background:rgba(5,5,5,0.92);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{display:flex;align-items:center;gap:0.75rem;text-decoration:none;}
+.nav-badge{
+  width:34px;height:34px;border-radius:50%;
+  background:var(--orange);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--display);font-weight:900;font-size:13px;color:#000;
+}
+.nav-name{font-family:var(--display);font-weight:600;font-size:15px;color:var(--white);letter-spacing:0.05em;}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{
+  font-family:var(--mono);font-size:10px;
+  color:var(--text-muted);text-decoration:none;
+  letter-spacing:0.15em;text-transform:uppercase;
+  transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--orange);}
+.nav-cta{
+  font-family:var(--mono);font-size:10px;letter-spacing:0.12em;
+  padding:0.5rem 1.2rem;text-decoration:none;text-transform:uppercase;
+  background:var(--orange);color:#000;font-weight:700;
+  transition:background 0.2s;
+}
+.nav-cta:hover{background:var(--orange-dim);}
+
+/* ============================================================
+   HERO — full viewport
+   ============================================================ */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:9rem 4rem 4rem;
+  position:relative;
+  text-align:center;
+  align-items:center;
+}
+.hero::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:200px;
+  background:linear-gradient(to bottom,transparent,var(--bg));
+  pointer-events:none;
+}
+.hero-eyebrow{
+  font-family:var(--mono);font-size:11px;color:var(--orange);
+  letter-spacing:0.25em;text-transform:uppercase;margin-bottom:1.5rem;
+  display:flex;align-items:center;justify-content:center;gap:1rem;
+}
+.hero-eyebrow::before{content:'';width:30px;height:1px;background:var(--orange);}
+.hero-eyebrow::after{content:'';width:30px;height:1px;background:var(--orange);}
+.hero-name{
+  font-family:var(--display);
+  font-size:clamp(4rem,10vw,11rem);
+  font-weight:900;line-height:0.88;
+  color:var(--white);
+  letter-spacing:-0.02em;
+  margin-bottom:2rem;
+  text-shadow:0 2px 40px rgba(0,0,0,0.8);
+}
+.hero-name em{color:var(--orange);font-style:normal;}
+.hero-divider{
+  width:60px;height:2px;background:var(--orange);
+  margin:0 auto 2rem;
+}
+.hero-statement{
+  font-family:var(--display);
+  font-size:clamp(1.2rem,2.5vw,2rem);
+  font-weight:300;color:var(--off-white);
+  line-height:1.4;max-width:700px;
+  margin:0 auto 3rem;
+  font-style:italic;
+  letter-spacing:0.02em;
+}
+.hero-statement strong{color:var(--orange);font-style:normal;font-weight:600;}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;}
+.btn{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.12em;
+  padding:0.85rem 2rem;text-decoration:none;
+  transition:all 0.25s;text-transform:uppercase;
+  display:inline-flex;align-items:center;gap:0.5rem;
+}
+.btn-primary{background:var(--orange);color:#000;font-weight:700;}
+.btn-primary:hover{background:var(--orange-dim);}
+.btn-outline{
+  background:transparent;color:var(--off-white);
+  border:1px solid rgba(255,255,255,0.2);
+}
+.btn-outline:hover{border-color:var(--orange);color:var(--orange);}
+
+/* TRUST STRIP */
+.trust-strip{
+  background:rgba(0,0,0,0.88);
+  backdrop-filter:blur(20px);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:3rem 4rem;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:2rem;
+}
+.trust-item{}
+.trust-num{
+  font-family:var(--display);font-size:3.5rem;font-weight:900;
+  color:var(--orange);line-height:1;margin-bottom:0.5rem;
+}
+.trust-label{
+  font-family:var(--mono);font-size:10px;color:rgba(255,255,255,0.5);
+  letter-spacing:0.15em;text-transform:uppercase;margin-bottom:3px;
+}
+.trust-sub{font-size:13px;color:var(--text-dim);font-weight:300;}
+
+/* ============================================================
+   ABOUT / STORY SECTION
+   ============================================================ */
+.story-section{
+  padding:8rem 4rem;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:6rem;max-width:1300px;margin:0 auto;
+}
+.story-left{}
+.story-tag{
+  font-family:var(--mono);font-size:10px;color:var(--orange);
+  letter-spacing:0.2em;text-transform:uppercase;margin-bottom:1rem;
+  display:flex;align-items:center;gap:0.75rem;
+}
+.story-tag::before{content:'';width:20px;height:1px;background:var(--orange);}
+.story-headline{
+  font-family:var(--display);font-size:clamp(2rem,4vw,3.5rem);
+  font-weight:700;color:var(--white);line-height:1.05;
+  margin-bottom:2rem;letter-spacing:-0.01em;
+}
+.story-headline span{color:var(--orange);}
+.story-body{font-size:15px;color:var(--text);line-height:1.9;font-weight:300;}
+.story-body p+p{margin-top:1.25rem;}
+.story-body strong{color:var(--off-white);font-weight:500;}
+
+.story-right{display:flex;flex-direction:column;justify-content:center;gap:1.5rem;}
+.story-card{
+  background:rgba(0,0,0,0.82);
+  backdrop-filter:blur(16px);
+  border:1px solid var(--border);
+  border-left:2px solid var(--orange);
+  padding:1.5rem;
+  transition:background 0.2s,border-color 0.2s;
+}
+.story-card:hover{background:rgba(249,115,22,0.05);border-color:var(--orange);}
+.story-card-icon{font-size:1.5rem;margin-bottom:0.75rem;}
+.story-card-title{
+  font-family:var(--display);font-size:1.1rem;font-weight:700;
+  color:var(--white);letter-spacing:0.03em;text-transform:uppercase;margin-bottom:0.4rem;
+}
+.story-card-text{font-size:13px;color:var(--text-dim);line-height:1.6;font-weight:300;}
+
+/* ============================================================
+   INFRASTRUCTURE GRID
+   ============================================================ */
+.infra-section{
+  padding:0 4rem 8rem;
+  max-width:1300px;margin:0 auto;
+}
+.section-header{margin-bottom:3.5rem;}
+.section-tag{
+  font-family:var(--mono);font-size:10px;color:var(--orange);
+  letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.75rem;
+  display:flex;align-items:center;gap:0.75rem;
+}
+.section-tag::before{content:'';width:20px;height:1px;background:var(--orange);}
+.section-title{
+  font-family:var(--display);font-size:clamp(2rem,4vw,3.5rem);
+  font-weight:700;color:var(--white);letter-spacing:-0.01em;
+}
+.section-title span{color:var(--orange);}
+.section-sub{font-size:14px;color:var(--text-dim);margin-top:0.5rem;font-weight:300;}
+
+.domain-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);
+}
+.domain-card{
+  background:rgba(5,5,5,0.92);
+  backdrop-filter:blur(20px);
+  padding:2rem;text-decoration:none;display:block;
+  position:relative;overflow:hidden;
+  transition:background 0.3s;
+}
+.domain-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--orange);transform:scaleX(0);transform-origin:left;
+  transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.domain-card:hover::before{transform:scaleX(1);}
+.domain-card:hover{background:rgba(249,115,22,0.05);}
+.domain-card:hover .domain-arrow{opacity:1;transform:translate(0,0);}
+
+.domain-icon{font-size:2rem;margin-bottom:1.25rem;display:block;}
+.domain-subdomain{
+  font-family:var(--mono);font-size:10px;color:var(--text-muted);
+  margin-bottom:0.5rem;letter-spacing:0.05em;
+}
+.domain-subdomain span{color:var(--orange);}
+.domain-name{
+  font-family:var(--display);font-size:1.5rem;font-weight:700;
+  color:var(--white);text-transform:uppercase;
+  letter-spacing:0.03em;margin-bottom:0.5rem;
+}
+.domain-desc{font-size:13px;color:var(--text-dim);line-height:1.6;font-weight:300;}
+.domain-status{
+  display:flex;align-items:center;gap:6px;margin-top:1.25rem;
+}
+.domain-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--orange);animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.domain-status-text{font-family:var(--mono);font-size:9px;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;}
+.domain-arrow{
+  position:absolute;top:1.5rem;right:1.5rem;
+  color:var(--orange);font-size:1rem;
+  opacity:0;transform:translate(-4px,-4px);
+  transition:all 0.25s;
+}
+
+/* ============================================================
+   CREDENTIALS
+   ============================================================ */
+.creds-section{
+  padding:0 4rem 8rem;
+  max-width:1300px;margin:0 auto;
+}
+.creds-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);
+  margin-top:3rem;
+}
+.cred-item{
+  background:rgba(5,5,5,0.92);
+  backdrop-filter:blur(16px);
+  padding:1.75rem 2rem;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;transition:background 0.2s;
+}
+.cred-item:hover{background:rgba(249,115,22,0.04);}
+.cred-name{font-weight:600;font-size:15px;color:var(--white);margin-bottom:4px;}
+.cred-org{font-family:var(--mono);font-size:11px;color:var(--text-muted);}
+.cred-badge{
+  font-family:var(--mono);font-size:9px;letter-spacing:0.1em;
+  padding:5px 14px;text-transform:uppercase;font-weight:700;
+  white-space:nowrap;flex-shrink:0;
+}
+.badge-earned{background:var(--orange);color:#000;}
+.badge-active{background:transparent;color:var(--orange);border:1px solid var(--orange);}
+.badge-planned{background:transparent;color:var(--text-muted);border:1px solid rgba(255,255,255,0.1);}
+
+/* ============================================================
+   CONNECT
+   ============================================================ */
+.connect-section{
+  padding:8rem 4rem;
+  text-align:center;
+  position:relative;
+}
+.connect-section::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to bottom,transparent,rgba(249,115,22,0.03),transparent);
+  pointer-events:none;
+}
+.connect-headline{
+  font-family:var(--display);font-size:clamp(2.5rem,6vw,6rem);
+  font-weight:900;color:var(--white);
+  letter-spacing:-0.02em;line-height:0.9;
+  margin-bottom:1.5rem;
+}
+.connect-headline span{color:var(--orange);}
+.connect-sub{
+  font-family:var(--body);font-size:16px;
+  color:var(--text-dim);font-weight:300;
+  max-width:500px;margin:0 auto 3rem;line-height:1.7;
+}
+.connect-links{display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;}
+
+/* FOOTER */
+footer{
+  border-top:1px solid var(--border);
+  padding:2rem 4rem;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+  background:rgba(0,0,0,0.92);backdrop-filter:blur(16px);
+}
+.footer-l{font-family:var(--mono);font-size:11px;color:var(--text-muted);}
+.footer-l span{color:var(--orange);}
+.footer-r{font-family:var(--mono);font-size:11px;color:var(--text-muted);}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .story-section{grid-template-columns:1fr;gap:3rem;}
+  .trust-strip{grid-template-columns:repeat(2,1fr);}
+  .domain-grid{grid-template-columns:repeat(2,1fr);}
+  .creds-grid{grid-template-columns:1fr;}
+}
+@media(max-width:768px){
+  .hero{padding:8rem 1.5rem 3rem;}
+  nav{padding:1rem 1.5rem;}
+  .nav-links{display:none;}
+  .trust-strip,.story-section,.infra-section,.creds-section,.connect-section{padding-left:1.5rem;padding-right:1.5rem;}
+  .domain-grid{grid-template-columns:1fr;}
+  footer{padding:1.5rem;}
+  .connect-section{padding:5rem 1.5rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     CINEMATIC OPENING
+     ============================================================ -->
+<div id="cinema">
+  <div class="cinema-bg"></div>
+  <div class="cinema-vignette"></div>
+  <div class="cinema-grain"></div>
+  <div class="cinema-content">
+    <p class="cinema-label">Cybersecurity · Ministry · Infrastructure</p>
+    <div class="cinema-name">JOEY<br>RAQUEL</div>
+    <div class="cinema-line"></div>
+    <p class="cinema-title">Penetration Tester &nbsp;·&nbsp; Pastor &nbsp;·&nbsp; Homelab Operator</p>
+    <p class="cinema-location">Honolulu, Hawaii &nbsp;·&nbsp; Open to opportunities</p>
+    <div class="cinema-socials">
+      <a href="https://linkedin.com/in/joeyraquel" target="_blank">LinkedIn</a>
+      <a href="https://github.com/joeyraquel" target="_blank">GitHub</a>
+      <a href="mailto:joeyraquel@gmail.com">Email</a>
+    </div>
+  </div>
+  <div class="cinema-scroll">
+    <div class="cinema-scroll-line"></div>
+    <div class="cinema-scroll-text">Scroll</div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MAIN
+     ============================================================ -->
+<div id="main">
+
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-badge">JR</div>
+    <span class="nav-name">Joey Raquel</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#story">About</a></li>
+    <li><a href="#infrastructure">Infrastructure</a></li>
+    <li><a href="#credentials">Credentials</a></li>
+    <li><a href="#connect">Contact</a></li>
+  </ul>
+  <a href="mailto:joeyraquel@gmail.com" class="nav-cta">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-eyebrow">Available for cybersecurity roles</div>
+  <h1 class="hero-name">Joey<br><em>Raquel</em></h1>
+  <div class="hero-divider"></div>
+  <p class="hero-statement">
+    "Fifteen years protecting communities as a pastor.<br>
+    Now <strong>protecting infrastructure</strong> as a cybersecurity professional."
+  </p>
+  <div class="hero-cta">
+    <a href="#connect" class="btn btn-primary">↗ Let's Talk</a>
+    <a href="#story" class="btn btn-outline">My Story</a>
+    <a href="#" class="btn btn-outline">↓ Resume</a>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-item">
+    <div class="trust-num">15+</div>
+    <div class="trust-label">Years Leadership</div>
+    <div class="trust-sub">Pastoral ministry & community</div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-num">17+</div>
+    <div class="trust-label">Years Infrastructure</div>
+    <div class="trust-sub">Satellite · Fiber · Microwave · Data center</div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-num">950</div>
+    <div class="trust-label">Mbps Home Lab</div>
+    <div class="trust-sub">Self-hosted · Docker · WireGuard</div>
+  </div>
+  <div class="trust-item">
+    <div class="trust-num">HNL</div>
+    <div class="trust-label">Honolulu, Hawaii</div>
+    <div class="trust-sub">Open to remote & relocation</div>
+  </div>
+</div>
+
+<!-- STORY -->
+<section class="story-section" id="story">
+  <div class="story-left">
+    <div class="story-tag">My story</div>
+    <h2 class="story-headline">The person you hire to <span>protect</span> what matters most.</h2>
+    <div class="story-body">
+      <p>Most cybersecurity professionals understand systems. I understand <strong>why those systems matter to people</strong> — because for fifteen years, I was entrusted with what mattered most to my community as a pastor.</p>
+      <p>That same sense of responsibility drives my approach to security. I don't just find vulnerabilities — I understand the human cost of leaving them open.</p>
+      <p>Combined with <strong>17+ years of hands-on infrastructure</strong> experience across satellite RF, fiber, microwave, HFC/DOCSIS, and data centers, I bring a rare combination: the technical depth to understand how systems break, and the judgment to know what's at stake when they do.</p>
+      <p>Now I'm channeling that foundation into offensive and defensive security — building in my home lab, earning credentials, and ready to protect your organization.</p>
+    </div>
+  </div>
+  <div class="story-right">
+    <div class="story-card">
+      <div class="story-card-icon">🛡</div>
+      <div class="story-card-title">Trust by default</div>
+      <div class="story-card-text">15 years of pastoral leadership means people trusted me with sensitive information, crises, and decisions that mattered. That culture of trust carries directly into security work.</div>
+    </div>
+    <div class="story-card">
+      <div class="story-card-icon">🔧</div>
+      <div class="story-card-title">Built, not studied</div>
+      <div class="story-card-text">Running a full self-hosted homelab — Proxmox, Docker, Nginx, WireGuard VPN, Cloudflare DNS, Jellyfin, Vaultwarden — on a gigabit pipe. Real infrastructure, real decisions.</div>
+    </div>
+    <div class="story-card">
+      <div class="story-card-icon">🎯</div>
+      <div class="story-card-title">Breaker's mindset</div>
+      <div class="story-card-text">Learning by dismantling — vsftpd exploits, SQL injection, WPScan brute force, reverse shells. Understanding how things break is how you build them better.</div>
+    </div>
+    <div class="story-card">
+      <div class="story-card-icon">📡</div>
+      <div class="story-card-title">Infrastructure DNA</div>
+      <div class="story-card-text">Satellite RF · Microwave towers · GPON/FTTH · HFC/DOCSIS · Nuclear facility (Palo Verde) · Cisco Enterprise. I've worked on the physical layer most security pros have only read about.</div>
+    </div>
+  </div>
+</section>
+
+<!-- INFRASTRUCTURE -->
+<section class="infra-section" id="infrastructure">
+  <div class="section-header">
+    <div class="section-tag">Personal infrastructure</div>
+    <h2 class="section-title">One name. <span>Everything</span> self-hosted.</h2>
+    <p class="section-sub">All running under joeyraquel.com — built, managed, and secured by me.</p>
+  </div>
+  <div class="domain-grid">
+    <a href="https://cybersecurity.joeyraquel.com" class="domain-card" target="_blank">
+      <span class="domain-arrow">↗</span>
+      <span class="domain-icon">🛡</span>
+      <div class="domain-subdomain"><span>cybersecurity</span>.joeyraquel.com</div>
+      <div class="domain-name">Cybersecurity</div>
+      <div class="domain-desc">CTF writeups, penetration testing notes, security tools and lab documentation</div>
+      <div class="domain-status"><span class="domain-dot"></span><span class="domain-status-text">Online · Home Lab</span></div>
+    </a>
+    <a href="https://church.joeyraquel.com" class="domain-card" target="_blank">
+      <span class="domain-arrow">↗</span>
+      <span class="domain-icon">✝️</span>
+      <div class="domain-subdomain"><span>church</span>.joeyraquel.com</div>
+      <div class="domain-name">Ministry</div>
+      <div class="domain-desc">15 years of pastoral ministry, sermons, resources and community</div>
+      <div class="domain-status"><span class="domain-dot"></span><span class="domain-status-text">Online · Home Lab</span></div>
+    </a>
+    <a href="https://lab.joeyraquel.com" class="domain-card" target="_blank">
+      <span class="domain-arrow">↗</span>
+      <span class="domain-icon">🧪</span>
+      <div class="domain-subdomain"><span>lab</span>.joeyraquel.com</div>
+      <div class="domain-name">Lab</div>
+      <div class="domain-desc">Homelab docs, Proxmox configs, Docker stacks and experiments</div>
+      <div class="domain-status"><span class="domain-dot"></span><span class="domain-status-text">Online · Home Lab</span></div>
+    </a>
+    <a href="https://projects.joeyraquel.com" class="domain-card" target="_blank">
+      <span class="domain-arrow">↗</span>
+      <span class="domain-icon">🗂</span>
+      <div class="domain-subdomain"><span>projects</span>.joeyraquel.com</div>
+      <div class="domain-name">Projects</div>
+      <div class="domain-desc">Portfolio showcases, builds, and professional case studies</div>
+      <div class="domain-status"><span class="domain-dot"></span><span class="domain-status-text">Online · Home Lab</span></div>
+    </a>
+    <a href="https://books.joeyraquel.com" class="domain-card" target="_blank">
+      <span class="domain-arrow">↗</span>
+      <span class="domain-icon">📚</span>
+      <div class="domain-subdomain"><span>books</span>.joeyraquel.com</div>
+      <div class="domain-name">Books</div>
+      <div class="domain-desc">Reading list, library, and notes on cybersecurity and leadership</div>
+      <div class="domain-status"><span class="domain-dot"></span><span class="domain-status-text">Online · Home Lab</span></div>
+    </a>
+    <a href="https://movies.joeyraquel.com" class="domain-card" target="_blank">
+      <span class="domain-arrow">↗</span>
+      <span class="domain-icon">🎬</span>
+      <div class="domain-subdomain"><span>movies</span>.joeyraquel.com</div>
+      <div class="domain-name">Movies</div>
+      <div class="domain-desc">Self-hosted Jellyfin media server — 4K streaming from Ugreen NAS</div>
+      <div class="domain-status"><span class="domain-dot"></span><span class="domain-status-text">Online · Ugreen NAS</span></div>
+    </a>
+  </div>
+</section>
+
+<!-- CREDENTIALS -->
+<section class="creds-section" id="credentials">
+  <div class="section-header">
+    <div class="section-tag">Certifications</div>
+    <h2 class="section-title">Credentials <span>&</span> Roadmap</h2>
+    <p class="section-sub">Earning credentials that match the work I'm already doing in the lab.</p>
+  </div>
+  <div class="creds-grid">
+    <div class="cred-item">
+      <div>
+        <div class="cred-name">Google Cybersecurity Professional Certificate</div>
+        <div class="cred-org">Coursera · Google</div>
+      </div>
+      <span class="cred-badge badge-earned">Earned</span>
+    </div>
+    <div class="cred-item">
+      <div>
+        <div class="cred-name">CompTIA Security+</div>
+        <div class="cred-org">Target — Q3 2026</div>
+      </div>
+      <span class="cred-badge badge-active">In Progress</span>
+    </div>
+    <div class="cred-item">
+      <div>
+        <div class="cred-name">CompTIA Network+</div>
+        <div class="cred-org">Planned — Q4 2026</div>
+      </div>
+      <span class="cred-badge badge-planned">Planned</span>
+    </div>
+    <div class="cred-item">
+      <div>
+        <div class="cred-name">Certified Ethical Hacker (CEH)</div>
+        <div class="cred-org">Target — 2027</div>
+      </div>
+      <span class="cred-badge badge-planned">Planned</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONNECT -->
+<section class="connect-section" id="connect">
+  <div class="section-tag" style="justify-content:center;margin-bottom:1.5rem;">Let's work together</div>
+  <h2 class="connect-headline">Ready to <span>protect</span><br>your organization.</h2>
+  <p class="connect-sub">Open to SOC analyst, blue team, penetration testing, and IT security roles. Honolulu, HI · Open to remote and relocation.</p>
+  <div class="connect-links">
+    <a href="https://linkedin.com/in/joeyraquel" class="btn btn-primary" target="_blank">↗ LinkedIn</a>
+    <a href="https://github.com/joeyraquel" class="btn btn-outline" target="_blank">⌥ GitHub</a>
+    <a href="https://tryhackme.com/p/joeyraquel" class="btn btn-outline" target="_blank">⚑ TryHackMe</a>
+    <a href="mailto:joeyraquel@gmail.com" class="btn btn-outline">✉ Email</a>
+    <a href="#" class="btn btn-outline">↓ Resume PDF</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-l">© 2026 <span>Joey Raquel</span> · joeyraquel.com · Honolulu, HI</div>
+  <div class="footer-r">GitHub Pages · Powered by faith & curiosity</div>
+</footer>
+
+</div><!-- /main -->
+
+<script>
+// Auto-enter after 5s or click
+function enterSite(){
+  const cinema = document.getElementById('cinema');
+  const main = document.getElementById('main');
+  if(cinema.classList.contains('exit')) return;
+  cinema.classList.add('exit');
+  main.classList.add('show');
+  setTimeout(()=>{ cinema.style.display='none'; },1000);
+}
+setTimeout(enterSite, 5500);
+document.getElementById('cinema').addEventListener('click', enterSite);
+</script>
+</body>
+</html>
